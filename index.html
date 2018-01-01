@@ -1,0 +1,69 @@
+
+
+<html>
+<head>
+<script>
+
+function download_env(filename) {
+    var element = document.createElement('a');
+
+    dbname = document.getElementById("dbname").value;
+    dbuser = document.getElementById("dbuser").value;
+    dbpw = document.getElementById("dbpw").value;
+    dbhost = document.getElementById("dbhost").value;
+    dbport = document.getElementById("dbport").value;
+
+    output_file = "module.exports = {\n";
+    output_file = output_file.concat("\tDB_NAME: process.env.DB_NAME = '",dbname, "',\n");
+    output_file = output_file.concat("\tDB_USER: process.env.DB_USER = '",dbuser, "',\n");
+    output_file = output_file.concat("\tDB_PASS: process.env.DB_PASS = '",dbpw, "',\n");
+    output_file = output_file.concat("\tDB_HOST: process.env.DB_HOST = '",dbhost, "',\n");
+    output_file = output_file.concat("\tDB_PORT: process.env.DB_PORT = '",dbport, "',\n");
+    output_file = output_file.concat("};");
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output_file));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+
+
+</script>
+</head>
+<body>
+
+nm env.js generator<p>
+<!-- yes i'm using a table, fuck you -->
+    <table>
+        <tr>
+            <td>database name</td>
+            <td><input type="text" id="dbname"></td>
+        </tr>
+        <tr>
+            <td>database username</td>
+            <td><input type="text" id="dbuser"></td>
+        </tr>
+        <tr>
+            <td>database password</td>
+            <td><input type="text" id="dbpw"></td>
+        </tr>
+        <tr>
+            <td>database host name</td>
+            <td><input type="text" id="dbhost"></td>
+        </tr>
+        <tr>
+            <td>database port</td>
+            <td><input type="text" id="dbport"></td>
+        </tr>
+    </table>
+	
+<p>
+    <input type="button" onclick="download_env('env.js');" value="generate env.js">
+</body>
+</html>
